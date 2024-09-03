@@ -5,29 +5,25 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class EnableObjectByAiming : MonoBehaviour
 {
-    public XRRayInteractor leftRayInteractor;
-    public XRRayInteractor rightRayInteractor;
-    public float activationDistance = 5f;
+    public XRRayInteractor LeftRayInteractor;
+    public XRRayInteractor RightRayInteractor;
+    public float ActivationDistance = 5f;
 
-    void Update()
+    private void Update()
     {
-        CheckRaycast(leftRayInteractor);
-        CheckRaycast(rightRayInteractor);
+        CheckRaycast(LeftRayInteractor);
+        CheckRaycast(RightRayInteractor);
     }
 
     private void CheckRaycast(XRRayInteractor rayInteractor)
     {
         if (rayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit))
         {
-            // Перевірка, чи промінь спрямований на цей об'єкт
             if (hit.transform == transform)
             {
                 float distance = Vector3.Distance(rayInteractor.transform.position, transform.position);
-
-                // Перевірка відстані до об'єкта
-                if (distance <= activationDistance)
+                if (distance <= ActivationDistance)
                 {
-                    // Деактивуємо об'єкт
                     gameObject.SetActive(false);
                 }
             }
